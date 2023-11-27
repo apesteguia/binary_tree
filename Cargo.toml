@@ -1,5 +1,5 @@
 [package]
-name = "binary_tree"
+name = "mikel_binary_tree"
 version = "0.1.0"
 edition = "2021"
 description = "simple search binary tree implementation in rust"

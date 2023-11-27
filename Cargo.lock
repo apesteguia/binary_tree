@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "binary_tree"
+name = "mikel_binary_tree"
 version = "0.1.0"
