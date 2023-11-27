@@ -1,6 +1,6 @@
 pub struct BinaryTree<T>
 where
-    T: std::fmt::Debug + Clone,
+    T: std::fmt::Debug + Clone + Ord,
 {
     elem: Option<Box<T>>,
     right: Option<Box<BinaryTree<T>>>,
@@ -108,5 +108,29 @@ where
         if let Some(right) = &self.right {
             right.inorder();
         }
+    }
+
+    pub fn vec_insert(&mut self, elems: Vec<T>) {
+        for i in elems {
+            self.insert(i);
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_min() {
+        let mut a = BinaryTree::new(1);
+        a.vec_insert([1, 2, 3, 4, 5, 6].to_vec());
+        assert_eq!(a.min(), Some(&1));
+    }
+    #[test]
+    fn test_max() {
+        let mut a = BinaryTree::new("hola");
+        a.vec_insert(["a", "b", "c", "adfasdfafas", "zzz"].to_vec());
+        assert_eq!(a.max(), Some(&"zzz"));
     }
 }
