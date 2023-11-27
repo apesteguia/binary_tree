@@ -157,4 +157,11 @@ mod tests {
         a.vec_insert(["a", "b", "c", "adfasdfafas", "zzz"].to_vec());
         assert_eq!(a.max(), Some(&"zzz"));
     }
+    #[test]
+    fn test_string() {
+        let mut a = BinaryTree::new(String::from("Hola"));
+        let b: Vec<String> = vec!["Hola".to_string(), "adios".to_string()];
+        a.vec_insert(b);
+        assert_eq!(a.min(), Some(&"Hola".to_string()))
+    }
 }
