@@ -110,6 +110,30 @@ where
         }
     }
 
+    pub fn preorder(&self) {
+        if let Some(elem) = &self.elem {
+            println!("{:?}", elem);
+        }
+        if let Some(left) = &self.left {
+            left.preorder();
+        }
+        if let Some(right) = &self.right {
+            right.preorder();
+        }
+    }
+
+    pub fn postorder(&self) {
+        if let Some(left) = &self.left {
+            left.postorder();
+        }
+        if let Some(right) = &self.right {
+            right.postorder();
+        }
+        if let Some(elem) = &self.elem {
+            println!("{:?}", elem);
+        }
+    }
+
     pub fn vec_insert(&mut self, elems: Vec<T>) {
         for i in elems {
             self.insert(i);
