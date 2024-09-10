@@ -37,13 +37,13 @@ where
                         *self = BinaryTree {
                             elem: None,
                             left: None,
-                            right: right,
+                            right,
                         };
                     }
                     (left, None) => {
                         *self = BinaryTree {
                             elem: None,
-                            left: left,
+                            left,
                             right: None,
                         };
                     }
