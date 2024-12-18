@@ -3,6 +3,19 @@ mod tests {
     use crate::bstree::bstree::BinaryTree;
 
     #[test]
+    fn test_iterator_inorder() {
+        let v = Vec::from([1, 2, 3]);
+        let mut a = BinaryTree::new(1);
+        a.insert(2);
+        a.insert(3);
+        let mut x = Vec::new();
+        for &z in a.into_iter() {
+            x.push(z);
+        }
+        assert_eq!(x, v);
+    }
+
+    #[test]
     fn test_min() {
         let mut a = BinaryTree::new(1);
         a.vec_insert([1, 2, 3, 4, 5, 6].to_vec());

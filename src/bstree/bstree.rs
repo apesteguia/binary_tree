@@ -1,9 +1,13 @@
+/// ## Generic Search Binary Tree implementation
 pub struct BinaryTree<T>
 where
     T: Clone + Ord + Eq + std::fmt::Debug,
 {
+    /// Pointer holding the data can be None
     pub elem: Option<Box<T>>,
+    /// Pointer to the right leaf
     pub right: Option<Box<BinaryTree<T>>>,
+    /// Pointer to the left leaf
     pub left: Option<Box<BinaryTree<T>>>,
 }
 
@@ -13,14 +17,28 @@ impl<T> BinaryTree<T>
 where
     T: std::fmt::Debug + Clone + Ord,
 {
-    pub fn new(elem: T) -> BinaryTree<T> {
-        BinaryTree {
+    /// Creates a new `BinaryTree<T>`
+    /// # Example
+    /// Basic usage:
+    /// ```
+    /// let mut a = BinaryTree::new(1);
+    /// ```
+    pub fn new(elem: T) -> Self {
+        Self {
             elem: Some(Box::new(elem)),
             right: None,
             left: None,
         }
     }
 
+    /// Deletes and returns the given element from the tree in O(log n)
+    /// If the element is not in the tree returns None
+    /// Basic usage:
+    /// ```
+    /// let mut a = BinaryTree::new(1);
+    /// let x = a.delete(1);
+    /// assert_eq!(Some(x), a);
+    /// ```
     pub fn delete(&mut self, del_elem: T) -> Option<T> {
         if let Some(ref mut elem) = self.elem {
             if del_elem < **elem {
@@ -70,6 +88,13 @@ where
         }
     }
 
+    /// Inserts the given element into the tree
+    /// Time complexity -> O(log n)
+    /// Basic usage:
+    /// ```
+    /// let mut a = BinaryTree::new(1);
+    /// a.insert(1);
+    /// ```
     pub fn insert(&mut self, new_elem: T) {
         match &mut self.elem {
             Some(ref mut elem) => {
@@ -93,10 +118,24 @@ where
         }
     }
 
+    /// Returns true if the list is empty
+    /// Basic usage:
+    /// ```
+    /// let mut a = BinaryTree::new(1);
+    /// let b = a.is_empty();
+    /// assert_eq!(b, false);
+    /// ```
     pub fn is_empty(&self) -> bool {
         self.elem.is_none() && self.right.is_none() && self.left.is_none()
     }
 
+    /// Returns true if the elemen is in the tree with O(log n) complexity
+    /// Basic usage:
+    /// ```
+    /// let mut a = BinaryTree::new(1);
+    /// let b = a.contains(1);
+    /// assert_eq!(b, true);
+    /// ```
     pub fn contains(&self, search_elem: T) -> bool {
         match &self.elem {
             Some(ref elem) => {
@@ -118,12 +157,28 @@ where
         }
     }
 
+    /// Clears/Deallocates the tree entirely
+    /// Basic usage:
+    /// ```
+    /// let mut a = BinaryTree::new(1);
+    /// a.insert(2);
+    /// a.clear();
+    /// assert_eq!(a.is_empty(), true);
+    /// ```
     pub fn clear(&mut self) {
         self.elem = None;
         self.left = None;
         self.right = None;
     }
 
+    /// Returns the maximum value of the tree in O(log n)
+    /// Basic usage:
+    /// ```
+    /// let mut a = BinaryTree::new(1);
+    /// a.insert(2);
+    /// let x = a.max().unwrap();
+    /// assert_eq!(x, 2);
+    /// ```
     pub fn max(&self) -> Option<&T> {
         match &self.right {
             Some(right) => right.max(),
@@ -131,6 +186,14 @@ where
         }
     }
 
+    /// Returns the minimum value of the tree in O(log n)
+    /// Basic usage:
+    /// ```
+    /// let mut a = BinaryTree::new(1);
+    /// a.insert(2);
+    /// let x = a.min().unwrap();
+    /// assert_eq!(x, 1);
+    /// ```
     pub fn min(&self) -> Option<&T> {
         match &self.left {
             Some(left) => left.min(),
@@ -138,6 +201,14 @@ where
         }
     }
 
+    /// Returns the height value of the tree in O(log n)
+    /// Basic usage:
+    /// ```
+    /// let mut a = BinaryTree::new(1);
+    /// a.insert(2);
+    /// let x = a.height().unwrap();
+    /// assert_eq!(x, 1);
+    /// ```
     pub fn height(&self) -> usize {
         match (&self.left, &self.right) {
             (Some(left), Some(right)) => 1 + usize::max(left.height(), right.height()),
@@ -147,6 +218,14 @@ where
         }
     }
 
+    /// Returns the total number of elements in the tree in O(n)
+    /// Basic usage:
+    /// ```
+    /// let mut a = BinaryTree::new(1);
+    /// a.insert(2);
+    /// let x = a.count().unwrap();
+    /// assert_eq!(x, 2);
+    /// ```
     pub fn count(&self) -> usize {
         let left_count = self.left.as_ref().map_or(0, |left| left.count());
         let right_count = self.right.as_ref().map_or(0, |right| right.count());
@@ -154,6 +233,13 @@ where
         left_count + right_count + current_count
     }
 
+    /// Prints to screen the elements in inorder
+    /// Basic usage:
+    /// ```
+    /// let mut a = BinaryTree::new(1);
+    /// a.insert(2);
+    /// a.inorder();
+    /// ```
     pub fn inorder(&self) {
         if let Some(left) = &self.left {
             left.inorder();
@@ -166,6 +252,13 @@ where
         }
     }
 
+    /// Prints to screen the elements in preorder
+    /// Basic usage:
+    /// ```
+    /// let mut a = BinaryTree::new(1);
+    /// a.insert(2);
+    /// a.peorder();
+    /// ```
     pub fn preorder(&self) {
         if let Some(elem) = &self.elem {
             println!("{:?}", elem);
@@ -178,6 +271,13 @@ where
         }
     }
 
+    /// Prints to screen the elements in postorder
+    /// Basic usage:
+    /// ```
+    /// let mut a = BinaryTree::new(1);
+    /// a.insert(2);
+    /// a.postorder();
+    /// ```
     pub fn postorder(&self) {
         if let Some(left) = &self.left {
             left.postorder();
@@ -190,9 +290,15 @@ where
         }
     }
 
+    /// Inserts all the elements in the vector in the tree
+    /// Basic usage:
+    /// ```
+    /// let mut a = BinaryTree::new(1);
+    /// a.vec_insert([1,2,3]);
+    /// ```
     pub fn vec_insert(&mut self, elems: Vec<T>) {
         for i in elems {
-            let _ = self.insert(i);
+            self.insert(i);
         }
     }
 }
