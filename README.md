@@ -1,3 +1,14 @@
 ## Simple implementation of a binary tree.
-Do not use in prodcution!!
-[Read the docs](https://docs.rs/mikel_binary_tree/0.1.3/binary_tree/)
+
+### Example
+´´´
+    fn main() {
+        let mut a = BinaryTree::new(1);
+        a.insert(2);
+        a.vec_insert([1,2,3]);
+        a.delete(1);
+        for i in a.into_iter() {
+            println!("{}", *i);
+        }
+    }
+´´´

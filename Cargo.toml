@@ -5,6 +5,16 @@ edition = "2021"
 description = "Simple search binary tree implementation"
 license = "MIT OR Apache-2.0"
 
+homepage = "https://github.com/apesteguia/binary_tree.git"
+repository = "https://github.com/apesteguia/binary-tree"
+keywords = [
+  "binary",
+  "binary-tree", 
+  "tree",
+  "binary-tree-view"
+]
+categories = ["binary-tree", "binary-tree-rust"]
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
